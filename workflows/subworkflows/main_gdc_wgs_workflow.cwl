@@ -30,4 +30,3 @@ steps:
         valueFrom: $(self.basename + '.bas') 
       threads: threads
       reference_fai: fai
-        

@@ -10,6 +10,8 @@ inputs:
   upload_bucket: string
   threads: int?
   job_uuid: string
+  gdc_reference_fai_uuid: string
+  gdc_sequence_dict_uuid: string
   gdc_core_reference_tar_uuid: string
   vagrent_cache_tar_uuid: string
   snv_indel_tar_uuid: string
@@ -66,6 +68,8 @@ steps:
     run: ./subworkflows/stage_inputs_workflow.cwl
     in:
       bioclient_config: bioclient_config
+      gdc_reference_fai_uuid: gdc_reference_fai_uuid
+      gdc_sequence_dict_uuid: gdc_sequence_dict_uuid
       gdc_core_reference_tar_uuid: gdc_core_reference_tar_uuid
       vagrent_cache_tar_uuid: vagrent_cache_tar_uuid
       snv_indel_tar_uuid: snv_indel_tar_uuid
@@ -75,7 +79,9 @@ steps:
       tumor_index_uuid: tumor_index_uuid
       normal_bam_uuid: normal_bam_uuid
       normal_index_uuid: normal_index_uuid
-    out: [ core_reference_tar, vagrent_cache, snv_indel_tar, cnv_sv_tar, qcset_tar, tumor_bam, tumor_index, normal_bam, normal_index ]
+    out: [ gdc_sequence_dict, gdc_reference_fai, core_reference_tar, vagrent_cache,
+           snv_indel_tar, cnv_sv_tar, qcset_tar, tumor_bam, tumor_index, normal_bam,
+           normal_index ]
 
   run_main_workflow:
     run: ./subworkflows/main_gdc_wgs_workflow.cwl

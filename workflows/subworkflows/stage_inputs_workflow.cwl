@@ -3,6 +3,8 @@ class: Workflow
 
 inputs:
   bioclient_config: File
+  gdc_reference_fai_uuid: string
+  gdc_sequence_dict_uuid: string
   gdc_core_reference_tar_uuid: string
   vagrent_cache_tar_uuid: string
   snv_indel_tar_uuid: string
@@ -14,6 +16,12 @@ inputs:
   normal_index_uuid: string
 
 outputs:
+  gdc_sequence_dict: 
+    type: File
+    outputSource: extract_sequence_dict/output
+  gdc_reference_fai:
+    type: File
+    outputSource: extract_reference_fai/output
   core_reference_tar:
     type: File
     outputSource: extract_core_reference_tar/output
@@ -43,6 +51,18 @@ outputs:
     outputSource: extract_normal_index/output
 
 steps:
+  extract_sequence_dict:
+    run: ../../tools/bioclient_download.cwl
+    in:
+      config-file: bioclient_config
+      download_handle: gdc_sequence_dict_uuid
+    out: [ output ]
+  extract_reference_fai:
+    run: ../../tools/bioclient_download.cwl
+    in:
+      config-file: bioclient_config
+      download_handle: gdc_reference_fai_uuid
+    out: [ output ]
   extract_core_reference_tar:
     run: ../../tools/bioclient_download.cwl
     in:
