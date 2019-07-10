@@ -40,6 +40,12 @@ outputs:
   out_global_time:
     type: File 
     outputSource: run_sanger_tool/global_time
+  brass_vcf_file:
+    type: File
+    outputSource: run_brass_postprocessing/brass_vcf
+  brass_vcf_index_file:
+    type: File
+    outputSource: run_brass_postprocessing/brass_vcf_index
 
 steps:
   get_tumor_bas:
@@ -107,3 +113,8 @@ steps:
   run_brass_postprocessing:
     run: ./brass_postprocess_workflow.cwl
     in:
+      threads: threads
+      job_uuid: job_uuid
+      sequence_dict: sequence_dict
+      sanger_results_tar: run_sanger_tool/result_archive
+    out: [ brass_vcf, brass_vcf_index ]
