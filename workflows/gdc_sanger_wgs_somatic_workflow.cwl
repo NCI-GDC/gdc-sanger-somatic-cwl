@@ -85,3 +85,18 @@ steps:
 
   run_main_workflow:
     run: ./subworkflows/main_gdc_wgs_workflow.cwl
+    in:
+      threads: threads
+      job_uuid: job_uuid
+      reference_fai: stage_inputs/gdc_reference_fai 
+      sequence_dict: stage_inputs/gdc_sequence_dict
+      core_reference_tar: stage_inputs/core_reference_tar
+      vagrent_cache: stage_inputs/vagrent_cache
+      snv_indel_tar: stage_inputs/snv_indel_tar
+      cnv_sv_tar: stage_inputs/cnv_sv_tar
+      qcset_tar: stage_inputs/qcset_tar
+      tumor_bam: stage_inputs/tumor_bam
+      tumor_index: stage_inputs/tumor_index
+      normal_bam: stage_inputs/normal_bam
+      normal_index: stage_inputs/normal_index
+    out: []
