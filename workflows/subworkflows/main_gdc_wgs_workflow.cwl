@@ -46,6 +46,12 @@ outputs:
   brass_vcf_index_file:
     type: File
     outputSource: run_brass_postprocessing/brass_vcf_index
+  caveman_vcf_file:
+    type: File
+    outputSource: run_caveman_postprocessing/caveman_vcf
+  caveman_vcf_index_file:
+    type: File
+    outputSource: run_caveman_postprocessing/caveman_vcf_index
 
 steps:
   get_tumor_bas:
@@ -118,3 +124,12 @@ steps:
       sequence_dict: sequence_dict
       sanger_results_tar: run_sanger_tool/result_archive
     out: [ brass_vcf, brass_vcf_index ]
+
+  run_caveman_postprocessing:
+    run: ./caveman_postprocess_workflow.cwl
+    in:
+      threads: threads
+      job_uuid: job_uuid
+      sequence_dict: sequence_dict
+      sanger_results_tar: run_sanger_tool/result_archive
+    out: [ caveman_vcf, caveman_vcf_index ]
