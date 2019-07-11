@@ -10,6 +10,7 @@ inputs:
   upload_bucket: string
   threads: int?
   job_uuid: string
+  tumor_aliquot_uuid: string
   gdc_reference_fai_uuid: string
   gdc_sequence_dict_uuid: string
   gdc_core_reference_tar_uuid: string
@@ -88,6 +89,7 @@ steps:
     in:
       threads: threads
       job_uuid: job_uuid
+      tumor_aliquot_uuid: tumor_aliquot_uuid
       reference_fai: stage_inputs/gdc_reference_fai 
       sequence_dict: stage_inputs/gdc_sequence_dict
       core_reference_tar: stage_inputs/core_reference_tar

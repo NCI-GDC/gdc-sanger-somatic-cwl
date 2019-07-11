@@ -9,6 +9,7 @@ requirements:
 inputs:
   threads: int?
   job_uuid: string
+  tumor_aliquot_uuid: string
   sequence_dict: File
   reference_fai: File
   core_reference_tar: File
@@ -52,6 +53,15 @@ outputs:
   caveman_vcf_index_file:
     type: File
     outputSource: run_caveman_postprocessing/caveman_vcf_index
+  ascat_tumor_ploidy:
+    type: float
+    outputSource: run_ascat_postprocessing/ascat_tumor_ploidy
+  ascat_tumor_purity:
+    type: float
+    outputSource: run_ascat_postprocessing/ascat_tumor_purity
+  ascat_segmentation_file:
+    type: float
+    outputSource: run_ascat_postprocessing/ascat_segmentation_file
 
 steps:
   get_tumor_bas:
@@ -133,3 +143,11 @@ steps:
       sequence_dict: sequence_dict
       sanger_results_tar: run_sanger_tool/result_archive
     out: [ caveman_vcf, caveman_vcf_index ]
+
+  run_ascat_postprocessing:
+    run: ./ascat_postprocess_workflow.cwl
+    in:
+      job_uuid: job_uuid
+      tumor_aliquot_uuid: tumor_aliquot_uuid
+      sanger_results_tar: run_sanger_tool/result_archive
+    out: [ ascat_tumor_ploidy, ascat_tumor_purity, ascat_segmentation_file ]
