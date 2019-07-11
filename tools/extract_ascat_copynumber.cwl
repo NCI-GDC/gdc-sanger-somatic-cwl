@@ -13,19 +13,22 @@ inputs:
   archive:
     type: File
     inputBinding:
-      prefix: --results_archive 
+      prefix: --input
 
-  output_prefix:
+  output_filename:
     type: string
     inputBinding:
-      prefix: --output_prefix 
+      prefix: --output
+
+  gdcaliquot:
+    type: string
+    inputBinding:
+      prefix: --gdcaliquot
 
 outputs:
-  brass_vcf:
+  ascat_cnv:
     type: File
     outputBinding:
-      glob: $(inputs.output_prefix + '.vcf.gz')
-    secondaryFiles:
-      - .tbi
+      glob: $(inputs.output_filename)
 
-baseCommand: [python, /opt/extract_brass_vcf.py]
+baseCommand: [python, /opt/extract_ascat.py, reformat_copynumber]
