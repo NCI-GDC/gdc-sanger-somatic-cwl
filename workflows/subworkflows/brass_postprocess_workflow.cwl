@@ -19,8 +19,23 @@ outputs:
   brass_vcf_index:
     type: File
     outputSource: index_vcf/vcf_index
+  brass_bedpe:
+    type: File
+    outputSource: extract_brass_bedpe/brass_bedpe
+  brass_bedpe_index:
+    type: File
+    outputSource: extract_brass_bedpe/brass_bedpe_index
 
 steps:
+  extract_brass_bedpe:
+    run: ../../tools/extract_brass_bedpe.cwl
+    in:
+      archive: sanger_results_tar
+      output_prefix:
+        source: job_uuid
+        valueFrom: $(self + '.wgs.BRASS.raw_structural_variation')
+    out: [ brass_bedpe, brass_bedpe_index ]
+
   extract_brass_vcf:
     run: ../../tools/extract_brass_vcf.cwl
     in:

@@ -13,22 +13,22 @@ inputs:
   archive:
     type: File
     inputBinding:
-      prefix: --input
+      prefix: --results_archive 
 
-  output_filename:
+  output_prefix:
     type: string
     inputBinding:
-      prefix: --output
-
-  gdcaliquot:
-    type: string
-    inputBinding:
-      prefix: --gdcaliquot
+      prefix: --output_prefix 
 
 outputs:
-  ascat_cnv:
+  brass_bedpe:
     type: File
     outputBinding:
-      glob: $(inputs.output_filename)
+      glob: $(inputs.output_prefix + '.bedpe.gz')
 
-baseCommand: [python, /opt/extract_ascat.py, reformat_copynumber]
+  brass_bedpe_index:
+    type: File
+    outputBinding:
+      glob: $(inputs.output_prefix + '.bedpe.gz.tbi')
+
+baseCommand: [python, /opt/extract_brass_bedpe.py]
