@@ -47,6 +47,12 @@ outputs:
   brass_vcf_index_file:
     type: File
     outputSource: run_brass_postprocessing/brass_vcf_index
+  brass_bedpe_file:
+    type: File
+    outputSource: run_brass_postprocessing/brass_bedpe
+  brass_bedpe_index_file:
+    type: File
+    outputSource: run_brass_postprocessing/brass_bedpe_index
   caveman_vcf_file:
     type: File
     outputSource: run_caveman_postprocessing/caveman_vcf
@@ -133,7 +139,7 @@ steps:
       job_uuid: job_uuid
       sequence_dict: sequence_dict
       sanger_results_tar: run_sanger_tool/result_archive
-    out: [ brass_vcf, brass_vcf_index ]
+    out: [ brass_vcf, brass_vcf_index, brass_bedpe, brass_bedpe_index ]
 
   run_caveman_postprocessing:
     run: ./caveman_postprocess_workflow.cwl
