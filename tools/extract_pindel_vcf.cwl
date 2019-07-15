@@ -21,14 +21,11 @@ inputs:
       prefix: --output_prefix
 
 outputs:
-  brass_bedpe:
+  pindel_vcf:
     type: File
     outputBinding:
-      glob: $(inputs.output_prefix + '.bedpe.gz')
+      glob: $(inputs.output_prefix + '.vcf.gz')
+    secondaryFiles:
+      - .tbi
 
-  brass_bedpe_index:
-    type: File
-    outputBinding:
-      glob: $(inputs.output_prefix + '.bedpe.gz.tbi')
-
-baseCommand: [python, /opt/extract_brass_bedpe.py]
+baseCommand: [python, /opt/extract_pindel_vcf.py]
