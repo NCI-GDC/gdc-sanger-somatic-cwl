@@ -58,6 +58,11 @@ outputs:
     doc: The filtered VCF file
     outputBinding:
       glob: $(inputs.output_filename)
-    secondaryFiles: [.tbi]
+
+  output_vcf_index:
+    type: File
+    doc: The index of filtered VCF file
+    outputBinding:
+      glob: $(inputs.output_filename + '.tbi')
 
 baseCommand: [java, -Xmx8G, -jar, /bin/GenomeAnalysisTK.jar, -T, VariantFiltration, --disable_auto_index_creation_and_locking_when_reading_rods]

@@ -16,7 +16,7 @@ inputs:
     doc: Reference faidx path. (i.e. GRCh38.d1.vd1.fa.fai)
 
   usedecoy:
-    type: boolean
+    type: boolean?
     default: false
     doc: If specified, it will include all the decoy sequences in the faidx.
 

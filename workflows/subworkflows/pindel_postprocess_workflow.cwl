@@ -27,7 +27,7 @@ inputs:
     default: TALTDP
     doc: The filter tag to use for the min_tumor_alt_dp filter
   usedecoy:
-    type: boolean
+    type: boolean?
     default: false
     doc: If specified, it will include all the decoy sequences in the faidx.
 
@@ -35,6 +35,9 @@ outputs:
     pindel_vcf:
       type: File
       outputSource: gatk_filter/output_vcf
+    pindel_vcf_index:
+      type: File
+      outputSource: gatk_filter/output_vcf_index
 
 steps:
     prepare_intervals:
@@ -86,4 +89,4 @@ steps:
         output_filename:
           source: job_uuid
           valueFrom: $(self + '.wgs.sanger_raw_pindel.raw_somatic_mutation.vcf.gz')
-      out: [output_vcf]
+      out: [output_vcf, output_vcf_index]

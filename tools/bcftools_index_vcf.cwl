@@ -4,18 +4,18 @@ class: CommandLineTool
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/bcftools:1.9 
+    dockerPull: quay.io/ncigdc/bcftools:1.9
   - class: ResourceRequirement
-    coresMin: 1 
+    coresMin: 1
     ramMin: 1000
-    coresMin: $(inputs.threads)
+    coresMax: $(inputs.threads)
 
 inputs:
   threads:
-    type: int 
+    type: int
     default: 1
     inputBinding:
-      prefix: --threads 
+      prefix: --threads
       position: 0
 
   output_filename:
