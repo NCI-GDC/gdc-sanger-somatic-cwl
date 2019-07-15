@@ -5,6 +5,7 @@ requirements:
   - class: InlineJavascriptRequirement
   - class: StepInputExpressionRequirement
   - class: MultipleInputFeatureRequirement
+  - class: SubworkflowFeatureRequirement
 
 inputs:
   threads: int?
@@ -21,6 +22,10 @@ inputs:
   tumor_index: File
   normal_bam: File
   normal_index: File
+  gdc_reference: File
+  min_tumor_alt_dp: int?
+  min_tumor_alt_dp_tag: string?
+  usedecoy: boolean?
 
 outputs:
   tumor_bas:
@@ -30,16 +35,16 @@ outputs:
     type: File
     outputSource: get_normal_bas/bas_file
   out_run_params:
-    type: File 
+    type: File
     outputSource: run_sanger_tool/run_params
   out_result_archive:
-    type: File 
+    type: File
     outputSource: run_sanger_tool/result_archive
   out_timings:
-    type: File 
+    type: File
     outputSource: run_sanger_tool/timings
   out_global_time:
-    type: File 
+    type: File
     outputSource: run_sanger_tool/global_time
   brass_vcf_file:
     type: File
@@ -68,15 +73,21 @@ outputs:
   ascat_segmentation_file:
     type: float
     outputSource: run_ascat_postprocessing/ascat_segmentation_file
+  pindel_vcf:
+    type: File
+    outputSource: run_pindel_postprocessing/pindel_vcf
+  pindel_vcf_index:
+    type: File
+    outputSource: run_pindel_postprocessing/pindel_vcf_index
 
 steps:
   get_tumor_bas:
     run: ../../tools/generate_bas.cwl
     in:
-      bam: tumor_bam 
+      bam: tumor_bam
       output_filename:
         source: tumor_bam
-        valueFrom: $(self.basename + '.bas') 
+        valueFrom: $(self.basename + '.bas')
       threads: threads
       reference_fai: reference_fai
     out: [ bas_file ]
@@ -93,10 +104,10 @@ steps:
   get_normal_bas:
     run: ../../tools/generate_bas.cwl
     in:
-      bam: normal_bam 
+      bam: normal_bam
       output_filename:
         source: normal_bam
-        valueFrom: $(self.basename + '.bas') 
+        valueFrom: $(self.basename + '.bas')
       threads: threads
       reference_fai: reference_fai
     out: [ bas_file ]
@@ -110,8 +121,17 @@ steps:
         valueFrom: $([self])
     out: [ output ]
 
+  make_gdc_reference:
+    run: ../../tools/make_secondary.cwl
+    in:
+      parent_file: gdc_reference
+      children:
+        source: [reference_fai, sequence_dict]
+        valueFrom: $(self)
+    out: [ output ]
+
   run_sanger_tool:
-    run: ../../tools/cgpwgs.cwl 
+    run: ../../tools/cgpwgs.cwl
     in:
       reference: core_reference_tar
       annot: vagrent_cache
@@ -124,9 +144,9 @@ steps:
       normalIdx: normal_index
       exclude:
         default:
-          $include: "../../tools/excluded_contigs.txt" 
+          $include: "../../tools/excluded_contigs.txt"
       species:
-        default: "human" 
+        default: "human"
       assembly:
         default: "GRCh38"
       pindelcpu: threads
@@ -157,3 +177,14 @@ steps:
       tumor_aliquot_uuid: tumor_aliquot_uuid
       sanger_results_tar: run_sanger_tool/result_archive
     out: [ ascat_tumor_ploidy, ascat_tumor_purity, ascat_segmentation_file ]
+
+  run_pindel_postprocessing:
+    run: ./pindel_postprocess_workflow.cwl
+    in:
+      job_uuid: job_uuid
+      sanger_results_tar: run_sanger_tool/result_archive
+      reference: make_gdc_reference/output
+      min_tumor_alt_dp_tag: min_tumor_alt_dp_tag
+      min_tumor_alt_dp: min_tumor_alt_dp
+      usedecoy: usedecoy
+    out: [ pindel_vcf, pindel_vcf_index ]
