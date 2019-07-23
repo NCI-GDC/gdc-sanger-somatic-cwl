@@ -73,6 +73,9 @@ outputs:
   ascat_segmentation_file:
     type: float
     outputSource: run_ascat_postprocessing/ascat_segmentation_file
+  ascat_genelevel_file:
+    type: float
+    outputSource: run_ascat_postprocessing/ascat_genelevel_file
   pindel_vcf:
     type: File
     outputSource: run_pindel_postprocessing/pindel_vcf
@@ -176,7 +179,7 @@ steps:
       job_uuid: job_uuid
       tumor_aliquot_uuid: tumor_aliquot_uuid
       sanger_results_tar: run_sanger_tool/result_archive
-    out: [ ascat_tumor_ploidy, ascat_tumor_purity, ascat_segmentation_file ]
+    out: [ ascat_tumor_ploidy, ascat_tumor_purity, ascat_segmentation_file, ascat_genelevel_file ]
 
   run_pindel_postprocessing:
     run: ./pindel_postprocess_workflow.cwl
