@@ -21,6 +21,9 @@ outputs:
   ascat_segmentation_file:
     type: File
     outputSource: extract_segments/ascat_cnv 
+  ascat_genelevel_file:
+    type: File
+    outputSource: extract_genelevel/gene_cnv
 
 steps:
   extract_stats:
@@ -38,3 +41,12 @@ steps:
         valueFrom: $(self + '.wgs.ASCAT.copy_number_variation.seg.txt')
       gdcaliquot: tumor_aliquot_uuid
     out: [ ascat_cnv ] 
+
+  extract_genelevel:
+    run: ../../tools/extract_gene_copynumber.cwl
+    in:
+      input: extract_segments/ascat_cnv
+      output_filename:
+        source: job_uuid
+        valueFrom: $(self + '.wgs.ASCAT.gene_level.copy_number_variation.tsv')
+    out: [ gene_cnv ] 
