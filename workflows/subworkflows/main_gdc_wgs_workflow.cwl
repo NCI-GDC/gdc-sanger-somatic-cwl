@@ -71,10 +71,10 @@ outputs:
     type: float
     outputSource: run_ascat_postprocessing/ascat_tumor_purity
   ascat_segmentation_file:
-    type: float
+    type: File 
     outputSource: run_ascat_postprocessing/ascat_segmentation_file
   ascat_genelevel_file:
-    type: float
+    type: File 
     outputSource: run_ascat_postprocessing/ascat_genelevel_file
   pindel_vcf:
     type: File
@@ -148,6 +148,7 @@ steps:
       exclude:
         default:
           $include: "../../tools/excluded_contigs.txt"
+        valueFrom: $(self.replace(/(\r\n|\n|\r)/gm, ""))
       species:
         default: "human"
       assembly:
