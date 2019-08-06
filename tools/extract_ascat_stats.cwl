@@ -4,7 +4,7 @@ class: CommandLineTool
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/gdc-sanger-somatic-tool:77c5c39604cf01ea445c3deb83d4b9d91e3cd43e
+    dockerPull: quay.io/ncigdc/gdc-sanger-somatic-tool:3630ab95a0f2856754227667fe1a8d3652daeb55 
   - class: ResourceRequirement
     coresMin: 1
     ramMin: 1000
