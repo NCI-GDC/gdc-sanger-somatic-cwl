@@ -119,6 +119,7 @@ steps:
     in:
       bioclient_config: bioclient_config
       upload_bucket: upload_bucket
+      job_uuid: job_uuid
       wf_archive_file: run_main_workflow/wf_archive_file
       brass_vcf_file: run_main_workflow/brass_vcf_file 
       brass_vcf_index_file: run_main_workflow/brass_vcf_index_file 
