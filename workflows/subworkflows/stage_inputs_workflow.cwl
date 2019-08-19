@@ -3,6 +3,7 @@ class: Workflow
 
 inputs:
   bioclient_config: File
+  gdc_reference_fasta_uuid: string
   gdc_reference_fai_uuid: string
   gdc_sequence_dict_uuid: string
   gdc_core_reference_tar_uuid: string
@@ -16,6 +17,9 @@ inputs:
   normal_index_uuid: string
 
 outputs:
+  gdc_reference_fasta:
+    type: File
+    outputSource: extract_reference_fasta/output
   gdc_sequence_dict: 
     type: File
     outputSource: extract_sequence_dict/output
@@ -51,6 +55,12 @@ outputs:
     outputSource: extract_normal_index/output
 
 steps:
+  extract_reference_fasta:
+    run: ../../tools/bioclient_download.cwl
+    in:
+      config-file: bioclient_config
+      download_handle: gdc_reference_fasta_uuid
+    out: [ output ]
   extract_sequence_dict:
     run: ../../tools/bioclient_download.cwl
     in:

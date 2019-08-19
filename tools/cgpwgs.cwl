@@ -15,14 +15,21 @@ doc: |
 requirements:
   - class: DockerRequirement
     dockerPull: "quay.io/wtsicgp/dockstore-cgpwgs:2.1.0"
+  - class: EnvVarRequirement
+    envDef:
+      CPU: $(inputs.max_threads)
 
 hints:
   - class: ResourceRequirement
-    coresMin: 1 # works but long, 24 recommended
+    coresMin: $(inputs.max_threads) 
     ramMin: 32000
     outdirMin: 20000
 
 inputs:
+  max_threads:
+    type: int?
+    default: 24
+
   reference:
     type: File
     doc: "The core reference (fa, fai, dict) as tar.gz"

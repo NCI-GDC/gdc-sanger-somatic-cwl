@@ -8,9 +8,11 @@ requirements:
   - class: SubworkflowFeatureRequirement
 
 inputs:
-  threads: int?
+  sanger_threads: int?
+  other_threads: int?
   job_uuid: string
   tumor_aliquot_uuid: string
+  gdc_reference: File
   sequence_dict: File
   reference_fai: File
   core_reference_tar: File
@@ -22,30 +24,14 @@ inputs:
   tumor_index: File
   normal_bam: File
   normal_index: File
-  gdc_reference: File
   min_tumor_alt_dp: int?
   min_tumor_alt_dp_tag: string?
   usedecoy: boolean?
 
 outputs:
-  tumor_bas:
+  wf_archive_file:
     type: File
-    outputSource: get_tumor_bas/bas_file
-  normal_bas:
-    type: File
-    outputSource: get_normal_bas/bas_file
-  out_run_params:
-    type: File
-    outputSource: run_sanger_tool/run_params
-  out_result_archive:
-    type: File
-    outputSource: run_sanger_tool/result_archive
-  out_timings:
-    type: File
-    outputSource: run_sanger_tool/timings
-  out_global_time:
-    type: File
-    outputSource: run_sanger_tool/global_time
+    outputSource: run_archive_data/output_archive
   brass_vcf_file:
     type: File
     outputSource: run_brass_postprocessing/brass_vcf
@@ -91,7 +77,7 @@ steps:
       output_filename:
         source: tumor_bam
         valueFrom: $(self.basename + '.bas')
-      threads: threads
+      threads: other_threads
       reference_fai: reference_fai
     out: [ bas_file ]
 
@@ -111,7 +97,7 @@ steps:
       output_filename:
         source: normal_bam
         valueFrom: $(self.basename + '.bas')
-      threads: threads
+      threads: other_threads
       reference_fai: reference_fai
     out: [ bas_file ]
 
@@ -136,6 +122,7 @@ steps:
   run_sanger_tool:
     run: ../../tools/cgpwgs.cwl
     in:
+      max_threads: sanger_threads
       reference: core_reference_tar
       annot: vagrent_cache
       snv_indel: snv_indel_tar
@@ -153,13 +140,13 @@ steps:
         default: "human"
       assembly:
         default: "GRCh38"
-      pindelcpu: threads
+      pindelcpu: other_threads
     out: [ run_params, result_archive, timings, global_time ]
 
   run_brass_postprocessing:
     run: ./brass_postprocess_workflow.cwl
     in:
-      threads: threads
+      threads: other_threads
       job_uuid: job_uuid
       sequence_dict: sequence_dict
       sanger_results_tar: run_sanger_tool/result_archive
@@ -168,7 +155,7 @@ steps:
   run_caveman_postprocessing:
     run: ./caveman_postprocess_workflow.cwl
     in:
-      threads: threads
+      threads: other_threads
       job_uuid: job_uuid
       sequence_dict: sequence_dict
       sanger_results_tar: run_sanger_tool/result_archive
@@ -192,3 +179,20 @@ steps:
       min_tumor_alt_dp: min_tumor_alt_dp
       usedecoy: usedecoy
     out: [ pindel_vcf, pindel_vcf_index ]
+
+  run_archive_data:
+    run: ../../tools/archive_list.cwl
+    in:
+      input_files:
+        source:
+          - get_tumor_bas/bas_file 
+          - get_normal_bas/bas_file
+          - run_sanger_tool/run_params 
+          - run_sanger_tool/result_archive
+          - run_sanger_tool/timings
+          - run_sanger_tool/global_time
+        valueFrom: $(self)
+      output_archive_name:
+        source: job_uuid
+        valueFrom: $(self + '.wgs_sanger_archive.tar.gz')
+    out: [ output_archive ]
