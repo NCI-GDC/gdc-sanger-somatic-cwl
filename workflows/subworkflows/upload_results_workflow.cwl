@@ -14,7 +14,6 @@ inputs:
   brass_vcf_file: File
   brass_vcf_index_file: File
   brass_bedpe_file: File
-  brass_bedpe_index_file: File
   caveman_vcf_file: File
   caveman_vcf_index_file: File
   ascat_segmentation_file: File
@@ -35,9 +34,6 @@ outputs:
   brass_bedpe_uuid: 
     type: string 
     outputSource: upload_brass_bedpe/uuid 
-  brass_bedpe_index_uuid: 
-    type: string 
-    outputSource: upload_brass_bedpe_index/uuid 
   caveman_vcf_uuid: 
     type: string 
     outputSource: upload_caveman_vcf/uuid 
@@ -100,17 +96,6 @@ steps:
         source: [ job_uuid, brass_bedpe_file ]
         valueFrom: $(self[0] + '/' + self[1].basename)
       input: brass_bedpe_file 
-    out: [ output, uuid ]
-
-  upload_brass_bedpe_index:
-    run: ../../tools/bioclient_upload_pull_uuid.cwl
-    in:
-      config-file: bioclient_config
-      upload-bucket: upload_bucket
-      upload-key:
-        source: [ job_uuid, brass_bedpe_index_file ]
-        valueFrom: $(self[0] + '/' + self[1].basename)
-      input: brass_bedpe_index_file 
     out: [ output, uuid ]
 
   upload_caveman_vcf:

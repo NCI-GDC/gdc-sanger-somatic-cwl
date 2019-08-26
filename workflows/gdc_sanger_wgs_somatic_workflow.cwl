@@ -54,9 +54,6 @@ outputs:
   brass_bedpe_uuid:
     type: string
     outputSource: upload_results/brass_bedpe_uuid
-  brass_bedpe_index_uuid:
-    type: string
-    outputSource: upload_results/brass_bedpe_index_uuid
   ascat_segmentation_uuid: 
     type: string
     outputSource: upload_results/ascat_segmentation_uuid
@@ -124,7 +121,6 @@ steps:
       brass_vcf_file: run_main_workflow/brass_vcf_file 
       brass_vcf_index_file: run_main_workflow/brass_vcf_index_file 
       brass_bedpe_file: run_main_workflow/brass_bedpe_file 
-      brass_bedpe_index_file: run_main_workflow/brass_bedpe_index_file 
       caveman_vcf_file: run_main_workflow/caveman_vcf_file 
       caveman_vcf_index_file: run_main_workflow/caveman_vcf_index_file 
       ascat_segmentation_file: run_main_workflow/ascat_segmentation_file
@@ -132,6 +128,6 @@ steps:
       pindel_vcf_file: run_main_workflow/pindel_vcf
       pindel_vcf_index_file: run_main_workflow/pindel_vcf_index
     out: [ wf_archive_uuid, brass_vcf_uuid, brass_vcf_index_uuid, brass_bedpe_uuid,
-           brass_bedpe_index_uuid, caveman_vcf_uuid, caveman_vcf_index_uuid,
+           caveman_vcf_uuid, caveman_vcf_index_uuid,
            ascat_segmentation_uuid, ascat_genelevel_uuid, pindel_vcf_uuid,
            pindel_vcf_index_uuid ]
