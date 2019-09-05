@@ -16,6 +16,7 @@ inputs:
     default: 8 
   job_uuid: string
   tumor_aliquot_uuid: string
+  normal_aliquot_uuid: string
   gdc_reference_fasta_uuid: string
   gdc_reference_fai_uuid: string
   gdc_sequence_dict_uuid: string
@@ -95,6 +96,7 @@ steps:
       other_threads: other_threads
       job_uuid: job_uuid
       tumor_aliquot_uuid: tumor_aliquot_uuid
+      normal_aliquot_uuid: normal_aliquot_uuid
       gdc_reference: stage_inputs/gdc_reference_fasta
       reference_fai: stage_inputs/gdc_reference_fai 
       sequence_dict: stage_inputs/gdc_sequence_dict
