@@ -10,22 +10,29 @@ requirements:
     ramMin: 1000
 
 inputs:
-  archive:
+  bam:
     type: File
     inputBinding:
-      prefix: --results_archive
+      prefix: --input_bam
 
-  output_prefix:
+  aliquot_id:
+    type: string 
+    inputBinding:
+      prefix: --aliquot_id
+
+  output_filename:
     type: string
     inputBinding:
-      prefix: --output_prefix
+      prefix: --output_header
 
 outputs:
-  caveman_vcf:
-    type: File
+  new_header: 
+    type: File[]
     outputBinding:
-      glob: $(inputs.output_prefix + '.vcf.gz')
-    secondaryFiles:
-      - .tbi
+      glob: $(inputs.output_filename + '*')
+      outputEval: |
+        ${
+           return self 
+         }
 
-baseCommand: [python, /opt/extract_caveman_vcf.py]
+baseCommand: [python, /opt/check_bam_header_samples.py]

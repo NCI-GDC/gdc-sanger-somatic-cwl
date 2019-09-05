@@ -12,6 +12,7 @@ inputs:
   other_threads: int?
   job_uuid: string
   tumor_aliquot_uuid: string
+  normal_aliquot_uuid: string
   gdc_reference: File
   sequence_dict: File
   reference_fai: File
@@ -70,12 +71,21 @@ outputs:
     outputSource: run_pindel_postprocessing/pindel_vcf_index
 
 steps:
+  reheader_tumor:
+    run: ./bam_reheader_workflow.cwl
+    in:
+      input_bam: tumor_bam
+      input_bam_index: tumor_index
+      aliquot_uuid: tumor_aliquot_uuid
+      threads: other_threads
+    out: [ processed_bam, processed_bai ]
+ 
   get_tumor_bas:
     run: ../../tools/generate_bas.cwl
     in:
-      bam: tumor_bam
+      bam: reheader_tumor/processed_bam 
       output_filename:
-        source: tumor_bam
+        source: reheader_tumor/processed_bam
         valueFrom: $(self.basename + '.bas')
       threads: other_threads
       reference_fai: reference_fai
@@ -84,18 +94,27 @@ steps:
   make_tumor_secondary:
     run: ../../tools/make_secondary.cwl
     in:
-      parent_file: tumor_bam
+      parent_file: reheader_tumor/processed_bam 
       children:
         source: get_tumor_bas/bas_file
         valueFrom: $([self])
     out: [ output ]
 
+  reheader_normal:
+    run: ./bam_reheader_workflow.cwl
+    in:
+      input_bam: normal_bam
+      input_bam_index: normal_index
+      aliquot_uuid: normal_aliquot_uuid
+      threads: other_threads
+    out: [ processed_bam, processed_bai ]
+
   get_normal_bas:
     run: ../../tools/generate_bas.cwl
     in:
-      bam: normal_bam
+      bam: reheader_normal/processed_bam 
       output_filename:
-        source: normal_bam
+        source: reheader_normal/processed_bam 
         valueFrom: $(self.basename + '.bas')
       threads: other_threads
       reference_fai: reference_fai
@@ -104,7 +123,7 @@ steps:
   make_normal_secondary:
     run: ../../tools/make_secondary.cwl
     in:
-      parent_file: normal_bam
+      parent_file: reheader_normal/processed_bam 
       children:
         source: get_normal_bas/bas_file
         valueFrom: $([self])
@@ -129,9 +148,9 @@ steps:
       cnv_sv: cnv_sv_tar
       qcset: qcset_tar
       tumour: make_tumor_secondary/output
-      tumourIdx: tumor_index
+      tumourIdx: reheader_tumor/processed_bai 
       normal: make_normal_secondary/output
-      normalIdx: normal_index
+      normalIdx: reheader_normal/processed_bai
       exclude:
         default:
           $include: "../../tools/excluded_contigs.txt"
