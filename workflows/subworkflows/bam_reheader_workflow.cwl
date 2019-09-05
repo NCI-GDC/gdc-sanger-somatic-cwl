@@ -58,10 +58,10 @@ steps:
     run:
       class: ExpressionTool
       inputs:
-        input_bam: File
-        input_bai: File
-        rehead_bam: File[] 
-        rehead_bai: File[] 
+        input_bam_file: File
+        input_bai_file: File
+        rehead_bam_file: File[] 
+        rehead_bai_file: File[] 
       outputs:
         final_bam: File
         final_bai: File
@@ -69,19 +69,19 @@ steps:
         ${
            var sel_bam;
            var sel_bai;
-           if( inputs.rehead_bam.length > 0 ) {
-             sel_bam = inputs.rehead_bam[0]; 
-             sel_bai = inputs.rehead_bai[0]; 
+           if( inputs.rehead_bam_file.length > 0 ) {
+             sel_bam = inputs.rehead_bam_file[0]; 
+             sel_bai = inputs.rehead_bai_file[0]; 
            } else {
-             sel_bam = inputs.input_bam;
-             sel_bai = inputs.input_bai;
+             sel_bam = inputs.input_bam_file;
+             sel_bai = inputs.input_bai_file;
            }
 
            return {'final_bam': sel_bam, 'final_bai': sel_bai}
          }
     in:
-      input_bam: input_bam 
-      input_bai: run_rename/out_file 
-      rehead_bam: run_reheader/bam_file
-      rehead_bai: run_reheader/bam_index
+      input_bam_file: input_bam 
+      input_bai_file: run_rename/out_file 
+      rehead_bam_file: run_reheader/bam_file
+      rehead_bai_file: run_reheader/bam_index
     out: [ final_bam, final_bai ] 
