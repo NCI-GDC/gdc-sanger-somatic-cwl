@@ -33,6 +33,15 @@ steps:
         valueFrom: $(self + '.reheader.sam')
     out: [ new_header ]
 
+  run_rename:
+    run: ../../tools/rename_file.cwl
+    in:
+      input_file: input_bam_index
+      output_filename:
+        source: input_bam
+        valueFrom: $(self.basename + '.bai')
+    out: [ out_file ]
+
   run_reheader:
     run: ../../tools/samtools_reheader_and_index.cwl
     scatter: input_header
@@ -72,7 +81,7 @@ steps:
          }
     in:
       input_bam: input_bam 
-      input_bai: input_bam_index
+      input_bai: run_rename/out_file 
       rehead_bam: run_reheader/bam_file
       rehead_bai: run_reheader/bam_index
     out: [ final_bam, final_bai ] 
