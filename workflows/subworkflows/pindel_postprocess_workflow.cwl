@@ -26,10 +26,6 @@ inputs:
     type: string?
     default: TALTDP
     doc: The filter tag to use for the min_tumor_alt_dp filter
-  usedecoy:
-    type: boolean?
-    default: false
-    doc: If specified, it will include all the decoy sequences in the faidx.
 
 outputs:
     pindel_vcf:
@@ -40,15 +36,6 @@ outputs:
       outputSource: gatk_filter/output_vcf_index
 
 steps:
-    prepare_intervals:
-      run: ../../tools/faidx_to_bed.cwl
-      in:
-        ref_fai:
-          source: reference
-          valueFrom: $(self.secondaryFiles[0])
-        usedecoy: usedecoy
-      out: [output_bed]
-
     extract_pindel_vcf:
       run: ../../tools/extract_pindel_vcf.cwl
       in:
@@ -58,21 +45,19 @@ steps:
           valueFrom: $(self + '.wgs.sanger_raw_pindel')
       out: [ pindel_vcf ]
 
-    select_variants:
-      run: ../../tools/gatk3-selectvariants.cwl
+    remove_nonstandard:
+      run: ../../tools/remove_nonstandard_variants.cwl
       in:
         input_vcf: extract_pindel_vcf/pindel_vcf
-        reference: reference
-        intervals: prepare_intervals/output_bed
         output_filename:
           source: job_uuid
-          valueFrom: $(self + '.wgs.sanger_raw_pindel.selected.raw_somatic_mutation.vcf.gz')
+          valueFrom: $(self + '.wgs.sanger_raw_pindel.standard.raw_somatic_mutation.vcf.gz')
       out: [output_vcf]
 
     vt_normalization:
       run: ../../tools/vt_norm.cwl
       in:
-        input_vcf: select_variants/output_vcf
+        input_vcf: remove_nonstandard/output_vcf
         reference_fasta: reference
         output_vcf:
           source: job_uuid
