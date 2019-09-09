@@ -17,6 +17,7 @@ inputs:
     doc: "input vcf file"
     inputBinding:
       position: 0
+    secondaryFiles: [.tbi]
 
   reference_fasta:
     type: File
@@ -39,3 +40,6 @@ outputs:
       glob: $(inputs.output_vcf)
 
 baseCommand: [/opt/vt/vt, normalize]
+arguments:
+  - position: 99
+    valueFrom: '-m'

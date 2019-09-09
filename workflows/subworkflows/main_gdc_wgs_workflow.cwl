@@ -27,7 +27,6 @@ inputs:
   normal_index: File
   min_tumor_alt_dp: int?
   min_tumor_alt_dp_tag: string?
-  usedecoy: boolean?
 
 outputs:
   wf_archive_file:
@@ -58,10 +57,10 @@ outputs:
     type: float
     outputSource: run_ascat_postprocessing/ascat_tumor_purity
   ascat_segmentation_file:
-    type: File 
+    type: File
     outputSource: run_ascat_postprocessing/ascat_segmentation_file
   ascat_genelevel_file:
-    type: File 
+    type: File
     outputSource: run_ascat_postprocessing/ascat_genelevel_file
   pindel_vcf:
     type: File
@@ -79,11 +78,11 @@ steps:
       aliquot_uuid: tumor_aliquot_uuid
       threads: other_threads
     out: [ processed_bam, processed_bai ]
- 
+
   get_tumor_bas:
     run: ../../tools/generate_bas.cwl
     in:
-      bam: reheader_tumor/processed_bam 
+      bam: reheader_tumor/processed_bam
       output_filename:
         source: reheader_tumor/processed_bam
         valueFrom: $(self.basename + '.bas')
@@ -94,7 +93,7 @@ steps:
   make_tumor_secondary:
     run: ../../tools/make_secondary.cwl
     in:
-      parent_file: reheader_tumor/processed_bam 
+      parent_file: reheader_tumor/processed_bam
       children:
         source: get_tumor_bas/bas_file
         valueFrom: $([self])
@@ -112,9 +111,9 @@ steps:
   get_normal_bas:
     run: ../../tools/generate_bas.cwl
     in:
-      bam: reheader_normal/processed_bam 
+      bam: reheader_normal/processed_bam
       output_filename:
-        source: reheader_normal/processed_bam 
+        source: reheader_normal/processed_bam
         valueFrom: $(self.basename + '.bas')
       threads: other_threads
       reference_fai: reference_fai
@@ -123,7 +122,7 @@ steps:
   make_normal_secondary:
     run: ../../tools/make_secondary.cwl
     in:
-      parent_file: reheader_normal/processed_bam 
+      parent_file: reheader_normal/processed_bam
       children:
         source: get_normal_bas/bas_file
         valueFrom: $([self])
@@ -148,7 +147,7 @@ steps:
       cnv_sv: cnv_sv_tar
       qcset: qcset_tar
       tumour: make_tumor_secondary/output
-      tumourIdx: reheader_tumor/processed_bai 
+      tumourIdx: reheader_tumor/processed_bai
       normal: make_normal_secondary/output
       normalIdx: reheader_normal/processed_bai
       exclude:
@@ -196,7 +195,6 @@ steps:
       reference: make_gdc_reference/output
       min_tumor_alt_dp_tag: min_tumor_alt_dp_tag
       min_tumor_alt_dp: min_tumor_alt_dp
-      usedecoy: usedecoy
     out: [ pindel_vcf, pindel_vcf_index ]
 
   run_archive_data:
@@ -204,9 +202,9 @@ steps:
     in:
       input_files:
         source:
-          - get_tumor_bas/bas_file 
+          - get_tumor_bas/bas_file
           - get_normal_bas/bas_file
-          - run_sanger_tool/run_params 
+          - run_sanger_tool/run_params
           - run_sanger_tool/result_archive
           - run_sanger_tool/timings
           - run_sanger_tool/global_time
