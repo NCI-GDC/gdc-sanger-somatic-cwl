@@ -25,8 +25,6 @@ inputs:
   tumor_index: File
   normal_bam: File
   normal_index: File
-  min_tumor_alt_dp: int?
-  min_tumor_alt_dp_tag: string?
 
 outputs:
   wf_archive_file:
@@ -193,8 +191,7 @@ steps:
       job_uuid: job_uuid
       sanger_results_tar: run_sanger_tool/result_archive
       reference: make_gdc_reference/output
-      min_tumor_alt_dp_tag: min_tumor_alt_dp_tag
-      min_tumor_alt_dp: min_tumor_alt_dp
+      threads: other_threads
     out: [ pindel_vcf, pindel_vcf_index ]
 
   run_archive_data:
