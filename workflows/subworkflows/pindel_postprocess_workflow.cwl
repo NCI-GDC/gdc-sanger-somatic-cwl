@@ -13,27 +13,20 @@ requirements:
   - class: MultipleInputFeatureRequirement
 
 inputs:
+  threads: int
   sanger_results_tar: File
   job_uuid: string
   reference:
     type: File
     secondaryFiles: [.fai, ^.dict]
-  min_tumor_alt_dp:
-    type: int?
-    default: 3
-    doc: If the tumor alt depth is less than this value filter it
-  min_tumor_alt_dp_tag:
-    type: string?
-    default: TALTDP
-    doc: The filter tag to use for the min_tumor_alt_dp filter
 
 outputs:
     pindel_vcf:
       type: File
-      outputSource: gatk_filter/output_vcf
+      outputSource: sort_vcf/sorted_vcf
     pindel_vcf_index:
       type: File
-      outputSource: gatk_filter/output_vcf_index
+      outputSource: index_vcf/vcf_index
 
 steps:
     extract_pindel_vcf:
@@ -64,14 +57,33 @@ steps:
           valueFrom: $(self + '.wgs.sanger_raw_pindel.norm.raw_somatic_mutation.vcf')
       out: [output_vcf_file]
 
-    gatk_filter:
-      run: ../../tools/gatk3-variant-filtration.cwl
+    update_seqdict:
+      run: ../../tools/picard_update_sequence_dictionary.cwl
       in:
         input_vcf: vt_normalization/output_vcf_file
-        reference: reference
-        min_tumor_alt_dp: min_tumor_alt_dp
-        min_tumor_alt_dp_tag: min_tumor_alt_dp_tag
+        sequence_dictionary:
+          source: reference
+          valueFrom: $(self.secondaryFiles[1])
+        output_filename:
+          source: job_uuid
+          valueFrom: $(self + '.wgs.sanger_raw_pindel.seqdict.raw_somatic_mutation.vcf')
+      out: [output_file]
+
+    sort_vcf:
+      run: ../../tools/bcftools_sort_vcf.cwl
+      in:
+        input_vcf: update_seqdict/output_file
         output_filename:
           source: job_uuid
           valueFrom: $(self + '.wgs.sanger_raw_pindel.raw_somatic_mutation.vcf.gz')
-      out: [output_vcf, output_vcf_index]
+      out: [sorted_vcf]
+
+    index_vcf:
+      run: ../../tools/bcftools_index_vcf.cwl
+      in:
+        threads: threads
+        input_vcf: sort_vcf/sorted_vcf
+        output_filename:
+          source: job_uuid
+          valueFrom: $(self + '.wgs.sanger_raw_pindel.raw_somatic_mutation.vcf.gz.tbi')
+      out: [vcf_index]
