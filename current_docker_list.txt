@@ -1,0 +1,13 @@
+alpine:latest
+quay.io/ncigdc/bcftools:1.9
+quay.io/ncigdc/bio-client:latest
+quay.io/ncigdc/gatk3:3.6
+quay.io/ncigdc/gdc-sanger-somatic-tool:21ab7b0ffb28fd58719912b410b90aaaeca5698b
+quay.io/ncigdc/gdc-sanger-somatic-tool:4b41226d78629e4fa55a2383f20b7234f5a0d8d2
+quay.io/ncigdc/gdc-sanger-somatic-tool:a89360b5734091928943ebce7044d4ee75c64e91
+quay.io/ncigdc/picard:2.20.0
+quay.io/ncigdc/sambamba:latest
+quay.io/ncigdc/samtools:147bd4cc606a63c7435907d97fea6e94e9ea9ed58c18f390cab8bc40b1992df7
+quay.io/ncigdc/seg2gene-tool:63dd5143fb8850ec710ba4fe4cf31854240edbe7
+quay.io/ncigdc/variant-filtration-tool:2.5
+quay.io/wtsicgp/dockstore-cgpwgs:2.1.0
