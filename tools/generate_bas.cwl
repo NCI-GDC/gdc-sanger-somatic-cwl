@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: CommandLineTool
-
+id: generate_bas
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement

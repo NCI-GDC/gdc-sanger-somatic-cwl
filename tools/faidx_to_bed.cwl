@@ -1,9 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
 class: CommandLineTool
-
+id: faidx_to_bed
 requirements:
   - class: DockerRequirement
     dockerPull: alpine

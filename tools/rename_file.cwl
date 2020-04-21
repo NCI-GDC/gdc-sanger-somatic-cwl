@@ -1,10 +1,8 @@
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: rename_file
 doc: |
     Renames the file
-
-class: CommandLineTool
-
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement

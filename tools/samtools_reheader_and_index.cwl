@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: CommandLineTool
-
+id: samtools_reheader_and_index
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement

@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: CommandLineTool
-
+id: bcftools_sort_vcf
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement

@@ -1,11 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 class: CommandLineTool
-label: "Picard UpdateSequenceDictionary" 
 cwlVersion: v1.0
-doc: |
-    Updates sequence dictionary in VCF 
-
+id: picard_update_sequence_dictionary
 requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/picard:2.20.0 

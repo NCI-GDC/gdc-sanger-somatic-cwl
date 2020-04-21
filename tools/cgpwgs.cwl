@@ -1,23 +1,17 @@
-#!/usr/bin/env cwl-runner
-
 class: CommandLineTool
-
-id: "cgpwgs"
-
-label: "CGP WGS analysis flow"
-
+id: cgpwgs 
 cwlVersion: v1.0
-
-doc: |
-    Based off of https://github.com/cancerit/dockstore-cgpwgs by Keiran Raine 
-    and licensed with https://spdx.org/licenses/AGPL-3.0-only
-
 requirements:
   - class: DockerRequirement
     dockerPull: "quay.io/wtsicgp/dockstore-cgpwgs:2.1.0"
   - class: EnvVarRequirement
     envDef:
       CPU: $(inputs.max_threads)
+
+doc: |
+    Based off of https://github.com/cancerit/dockstore-cgpwgs by Keiran Raine 
+    and licensed with https://spdx.org/licenses/AGPL-3.0-only
+
 
 hints:
   - class: ResourceRequirement

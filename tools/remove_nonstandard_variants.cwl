@@ -1,11 +1,8 @@
-#!/usr/bin/env cwl-runner
-
 class: CommandLineTool
-label: Drops non-standard VCF alleles
 cwlVersion: v1.0
+id: remove_nonstandard_variants
 doc: |
     Filters (REMOVES!) rows from VCF with non-standard alleles
-
 requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/gdc-sanger-somatic-tool:4b41226d78629e4fa55a2383f20b7234f5a0d8d2

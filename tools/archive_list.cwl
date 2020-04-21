@@ -1,11 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 class: CommandLineTool
-
 cwlVersion: v1.0
-doc: |
-    Creates a tar.gz archive of a list of files
-
+id: archive_list
 requirements:
   - class: DockerRequirement
     dockerPull: alpine:latest

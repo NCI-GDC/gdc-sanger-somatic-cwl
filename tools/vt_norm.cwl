@@ -1,11 +1,8 @@
-#!/usr/bin/env cwl-runner
-
 class: CommandLineTool
-label: "vt normalize"
 cwlVersion: v1.0
+id: vt_norm
 doc: |
     Normalize PINDEL VCF
-
 requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/variant-filtration-tool:2.5

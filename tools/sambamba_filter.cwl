@@ -1,7 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-label: "Sambamba Filtration"
+class: CommandLineTool
+id: sambamba_filter
 doc: |
     Filter BAM files for Pindel.
 
@@ -9,8 +8,6 @@ requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/sambamba:latest
   - class: InlineJavascriptRequirement
-
-class: CommandLineTool
 
 inputs:
   - id: input

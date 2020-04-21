@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: Workflow
-
+id: bam_reheader_wf
 requirements:
   - class: InlineJavascriptRequirement
   - class: StepInputExpressionRequirement
