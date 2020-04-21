@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: Workflow
-
+id: main_gdc_wgs_sanger_wf
 requirements:
   - class: InlineJavascriptRequirement
   - class: StepInputExpressionRequirement

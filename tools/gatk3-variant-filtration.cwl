@@ -1,10 +1,6 @@
 cwlVersion: v1.0
-label: "GATK3 VariantFiltration"
 class: CommandLineTool
-
-doc: |
-    Runs GATK VariantFiltration specifically for PINDEL Somatic VCFs
-
+id: gatk3-variant-filtration
 requirements:
   - class: ShellCommandRequirement
   - class: InlineJavascriptRequirement

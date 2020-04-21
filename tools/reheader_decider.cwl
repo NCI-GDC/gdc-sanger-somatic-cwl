@@ -1,6 +1,6 @@
 cwlVersion: v1.0
-
 class: ExpressionTool
+id: reheader_decider
 
 inputs:
   input_bam_file: File

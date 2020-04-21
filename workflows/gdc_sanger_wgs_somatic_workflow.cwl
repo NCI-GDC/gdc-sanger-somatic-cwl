@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: Workflow
-
+id: gdc_sanger_wgs_somatic_gpas_wf
 requirements:
   - class: InlineJavascriptRequirement
   - class: SubworkflowFeatureRequirement

@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: CommandLineTool
-
+id: extract_pindel_vcf
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement

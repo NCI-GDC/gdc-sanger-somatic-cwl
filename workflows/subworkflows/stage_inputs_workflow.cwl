@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: Workflow
-
+id: stage_inputs_wf
 inputs:
   bioclient_config: File
   gdc_reference_fasta_uuid: string

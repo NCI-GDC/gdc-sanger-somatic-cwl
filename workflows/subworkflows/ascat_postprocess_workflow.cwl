@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: Workflow
-
+id: ascat_postprocess_wf
 requirements:
   - class: InlineJavascriptRequirement
   - class: StepInputExpressionRequirement

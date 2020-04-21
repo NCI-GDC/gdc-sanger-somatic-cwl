@@ -1,7 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: make_secondary
 requirements:
   - class: DockerRequirement
     dockerPull: alpine
@@ -15,8 +14,6 @@ requirements:
            };
            return ret
        }
-
-class: CommandLineTool
 
 inputs:
   parent_file:

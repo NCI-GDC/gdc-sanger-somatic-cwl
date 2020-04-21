@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: Workflow
-
+id: caveman_postprocess_wf
 requirements:
   - class: InlineJavascriptRequirement
   - class: StepInputExpressionRequirement

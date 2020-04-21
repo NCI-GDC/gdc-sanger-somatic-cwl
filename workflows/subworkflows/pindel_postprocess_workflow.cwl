@@ -1,16 +1,12 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-doc: |
-  Normalize and filter Pindel vcf.
-
 class: Workflow
-
+id: pindel_postprocess_wf
 requirements:
   - class: InlineJavascriptRequirement
   - class: StepInputExpressionRequirement
   - class: SubworkflowFeatureRequirement
   - class: MultipleInputFeatureRequirement
+doc: Normalize and filter Pindel vcf.
 
 inputs:
   threads: int

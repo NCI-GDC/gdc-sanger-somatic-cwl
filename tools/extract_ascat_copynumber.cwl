@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: CommandLineTool
-
+id: extract_ascat_copynumber
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement

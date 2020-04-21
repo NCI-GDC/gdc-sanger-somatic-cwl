@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: CommandLineTool
-
+id: extract_ascat_stats
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement

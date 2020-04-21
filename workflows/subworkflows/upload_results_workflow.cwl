@@ -1,6 +1,6 @@
 cwlVersion: v1.0
 class: Workflow
-
+id: upload_results_wf
 requirements:
   - class: InlineJavascriptRequirement
   - class: StepInputExpressionRequirement
