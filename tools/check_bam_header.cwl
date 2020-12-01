@@ -4,7 +4,7 @@ id: check_bam_header
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/gdc-sanger-somatic-tool:a89360b5734091928943ebce7044d4ee75c64e91
+    dockerPull: quay.io/ncigdc/gdc-sanger-somatic-tool:d22a66e892219d235d2d5269aa1274c81be9c569
   - class: ResourceRequirement
     coresMin: 1
     ramMin: 1000
@@ -35,4 +35,4 @@ outputs:
            return self 
          }
 
-baseCommand: [python, /opt/check_bam_header_samples.py]
+baseCommand: [python, /opt/check_bam_header.py]
