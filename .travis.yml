@@ -1,6 +1,6 @@
 services:
 - docker
-install: make build
+install: make docker-login build
 stages:
 - name: test
 - name: publish-release
@@ -16,11 +16,11 @@ jobs:
   - stage: publish-staging
     name: Publish staging image
     script:
-    - make publish-staging
+    - make docker-login publish-staging
   - stage: publish-release
     name: Publish production image
     script:
-    - make publish-release
+    - make docker-login publish-release
 env:
   global:
   - secure: ANPn77SCDuNPduHTGLoH5l05vw+x8Lh/CLMOigk5R0lSkyMplIbXQFQU+XgN4b9bQ58kX8oZ1D/tbxcww44Kwnug+A4e1jv/W4erf4u3Jpyqycj0qYIrnUYZL3ibwYL+Uy7aVfUh4AV84+LYJr1c8IQ7lHCRd3CET11B1kN9bxk/6CQtGYObmTEwlwCqafHBKfhuJ5nKE1R54UIMjWnEd5Cw+ry+E3hEa5xgzT7mrwDFfMEKZxTyterhQA6udnd0ZTb9XTTSNNPNfDNUNBYd9Zx+3DXLrvzhqSgF9opMjwwDJyZ+Mr4p2Q47TAcKCVn9bSvfVUtApkbDdHPkZMl0bk1dxlNukE/LDBfapjCudbzQbn9bbvwuE8Wc7tmGvvxfZNjaF7HVgbqYPig8avdjCc7Yx0rdlbetwwye1jzoZMukBjKYe0N39uHpJbZRvQ6Vt/5izBlnWtgpFBvvHUjaRawtFayYOAiUgrA8hWvUAwdG6fGXSad4yljuTZcdUjCT+7Dw3skAAQuO8M+r6zWcX6xctpCjBoZBLhnUJ/ekaTOCbr5UldGcGciR6g4H2E0QTPVFTaeDFXAGohYd9r5ksm1ZzrG/yVbrBj0FFwJ+3O7Y+XgFDxK7MBFmI1yckTPPBijYFc2NbJhHZ9rJLDajsQS5ebgO3QXCf/aYpCfmAoI=
