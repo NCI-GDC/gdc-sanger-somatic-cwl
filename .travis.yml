@@ -1,29 +1,27 @@
 services:
-  - docker
-
+- docker
 install: make build
-
 stages:
-  - name: test
-  - name: publish-release
-    if: branch = main AND type != pull_request
-  - name: publish-staging
-    if: branch != main AND type != pull_request
-
+- name: test
+- name: publish-release
+  if: branch = main AND type != pull_request
+- name: publish-staging
+  if: branch != main AND type != pull_request
 jobs:
   include:
-    - stage: test
-      name: Test
-      script:
-        - make validate
-    - stage: publish-staging
-      name: Publish staging image
-      script:
-        - make publish-staging
-    - stage: publish-release
-      name: Publish production image
-      script:
-        - make publish-release
-
+  - stage: test
+    name: Test
+    script:
+    - make validate
+  - stage: publish-staging
+    name: Publish staging image
+    script:
+    - make publish-staging
+  - stage: publish-release
+    name: Publish production image
+    script:
+    - make publish-release
 env:
   global:
+  - secure: ANPn77SCDuNPduHTGLoH5l05vw+x8Lh/CLMOigk5R0lSkyMplIbXQFQU+XgN4b9bQ58kX8oZ1D/tbxcww44Kwnug+A4e1jv/W4erf4u3Jpyqycj0qYIrnUYZL3ibwYL+Uy7aVfUh4AV84+LYJr1c8IQ7lHCRd3CET11B1kN9bxk/6CQtGYObmTEwlwCqafHBKfhuJ5nKE1R54UIMjWnEd5Cw+ry+E3hEa5xgzT7mrwDFfMEKZxTyterhQA6udnd0ZTb9XTTSNNPNfDNUNBYd9Zx+3DXLrvzhqSgF9opMjwwDJyZ+Mr4p2Q47TAcKCVn9bSvfVUtApkbDdHPkZMl0bk1dxlNukE/LDBfapjCudbzQbn9bbvwuE8Wc7tmGvvxfZNjaF7HVgbqYPig8avdjCc7Yx0rdlbetwwye1jzoZMukBjKYe0N39uHpJbZRvQ6Vt/5izBlnWtgpFBvvHUjaRawtFayYOAiUgrA8hWvUAwdG6fGXSad4yljuTZcdUjCT+7Dw3skAAQuO8M+r6zWcX6xctpCjBoZBLhnUJ/ekaTOCbr5UldGcGciR6g4H2E0QTPVFTaeDFXAGohYd9r5ksm1ZzrG/yVbrBj0FFwJ+3O7Y+XgFDxK7MBFmI1yckTPPBijYFc2NbJhHZ9rJLDajsQS5ebgO3QXCf/aYpCfmAoI=
+  - secure: 18gTc1iIJfFUKRTLhOBb503SnnGcT8NIn2af0/eAPgjg3yLwAPqNFXWZDQoZ79H40vhujA8Pd2S1fEnABN1bEtd2lfFe1cTu5wEEXN8LrhVU+3fnp4YbAxboZhhmUR71VGzVwIVp+7XQqifqE/cZ8K1jDpFhUJfWHCx6qikErYSEcO5beNyy2nj8AEoPtYlZMuIbTSWylcTQb7yqrLKJkadG5/7Sl1RikTWZnLeVb3ihVZSLTDibGLRpxzBzgo36Ef6ERyrhNzAXEpEEfKCaKxHRgvHWXS3qFqPL7YKDiViWpS2oALNJhXJyyHTELwoXVFuziUgijkFFRelT3Fszw00eRmAQBYVLBiqv0obl8bGPacDDNDQjYMnTnkqBd4jaz+fCxiE87KmuQq/Xj24C+L9iXkySeiXaa79DCdKqJQNutj6tecflj0Ol4wHRW8njYqS2VqwuZ88SprIT9mH7fPe0qvnWCXrF1etAY5d9u7Es8gvZkRujpa8RuI1TG3qC4nJFq4OVJwIdxP9l+QI6vk13Lrg/oJoGxpvvTbCn076jO5IGru+zqb+r/pmWQOj1ay4a9AwNzggrGLo6wqdxfj7uXzN2Tmha7+CIu/4DWo/Q3G3O7l+tXuiNwLDUu/yV8m04qpxQJUre55zdQwk+MBJvb7Vp1jsSFYw3Hq6NxtU=
