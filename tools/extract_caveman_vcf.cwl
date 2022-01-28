@@ -4,7 +4,7 @@ id: extract_caveman_vcf
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/gdc-sanger-somatic-tool:21ab7b0ffb28fd58719912b410b90aaaeca5698b
+    dockerPull: quay.io/ncigdc/gdc-sanger-somatic-tool:d22a66e892219d235d2d5269aa1274c81be9c569
   - class: ResourceRequirement
     coresMin: 1
     ramMin: 1000

@@ -5,7 +5,7 @@ doc: |
     Filters (REMOVES!) rows from VCF with non-standard alleles
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/gdc-sanger-somatic-tool:4b41226d78629e4fa55a2383f20b7234f5a0d8d2
+    dockerPull: quay.io/ncigdc/gdc-sanger-somatic-tool:d22a66e892219d235d2d5269aa1274c81be9c569
   - class: InlineJavascriptRequirement
 
 inputs:
