@@ -3,7 +3,7 @@ cwlVersion: v1.0
 id: archive_list
 requirements:
   - class: DockerRequirement
-    dockerPull: alpine:latest
+    dockerPull: quay.io/ncigdc/bio-alpine:base
   - class: InlineJavascriptRequirement
   - class: InitialWorkDirRequirement
     listing: $(inputs.input_files)

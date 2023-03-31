@@ -6,7 +6,7 @@ doc: |
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
-    dockerPull: alpine:latest
+    dockerPull: quay.io/ncigdc/bio-alpine:base
   - class: ResourceRequirement
     coresMin: 1
     ramMin: 1000

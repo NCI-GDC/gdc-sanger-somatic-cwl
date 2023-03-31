@@ -4,7 +4,7 @@ id: generate_bas
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
-    dockerPull: quay.io/wtsicgp/dockstore-cgpwgs:2.1.0
+    dockerPull: quay.io/ncigdc/gdc_sanger:2.1.0
   - class: ResourceRequirement
     coresMin: $(inputs.threads)
     ramMin: 1000
