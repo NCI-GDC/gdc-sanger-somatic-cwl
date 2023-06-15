@@ -10,8 +10,8 @@ requirements:
   - class: ResourceRequirement
     coresMin: 1
     ramMin: 1000
-    tmpdirMin: $(inputs.input_file)
-    outdirMin: $(inputs.input_file)
+    tmpdirMin: $(Math.ceil (inputs.input_file.size / 1048576))
+    outdirMin: $(Math.ceil (inputs.input_file.size / 1048576))
   - class: InitialWorkDirRequirement
     listing: |
       ${
