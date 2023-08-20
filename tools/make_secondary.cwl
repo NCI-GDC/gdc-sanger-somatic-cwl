@@ -3,7 +3,7 @@ class: CommandLineTool
 id: make_secondary
 requirements:
   - class: DockerRequirement
-    dockerPull: alpine
+    dockerPull: quay.io/ncigdc/bio-alpine:base
   - class: InlineJavascriptRequirement
   - class: InitialWorkDirRequirement
     listing: |
