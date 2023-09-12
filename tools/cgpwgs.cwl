@@ -1,21 +1,21 @@
 class: CommandLineTool
-id: cgpwgs 
+id: cgpwgs
 cwlVersion: v1.0
 requirements:
   - class: DockerRequirement
-    dockerPull: "quay.io/wtsicgp/dockstore-cgpwgs:2.1.0"
+    dockerPull: quay.io/ncigdc/gdc_sanger:2.1.0
   - class: EnvVarRequirement
     envDef:
       CPU: $(inputs.max_threads)
 
 doc: |
-    Based off of https://github.com/cancerit/dockstore-cgpwgs by Keiran Raine 
+    Based off of https://github.com/cancerit/dockstore-cgpwgs by Keiran Raine
     and licensed with https://spdx.org/licenses/AGPL-3.0-only
 
 
 hints:
   - class: ResourceRequirement
-    coresMin: $(inputs.max_threads) 
+    coresMin: $(inputs.max_threads)
     ramMin: 32000
     outdirMin: 20000
 

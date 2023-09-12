@@ -3,7 +3,7 @@ class: CommandLineTool
 id: faidx_to_bed
 requirements:
   - class: DockerRequirement
-    dockerPull: alpine
+    dockerPull: quay.io/ncigdc/bio-alpine:base
   - class: InlineJavascriptRequirement
   - class: ShellCommandRequirement
 
