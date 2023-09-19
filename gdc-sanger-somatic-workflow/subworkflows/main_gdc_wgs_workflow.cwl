@@ -92,9 +92,7 @@ steps:
     run: ../../tools/make_secondary.cwl
     in:
       parent_file: reheader_tumor/processed_bam
-      children:
-        source: get_tumor_bas/bas_file
-        valueFrom: $([self])
+      children: get_tumor_bas/bas_file
     out: [ output ]
 
   reheader_normal:
@@ -121,18 +119,15 @@ steps:
     run: ../../tools/make_secondary.cwl
     in:
       parent_file: reheader_normal/processed_bam
-      children:
-        source: get_normal_bas/bas_file
-        valueFrom: $([self])
+      children: get_normal_bas/bas_file
     out: [ output ]
 
   make_gdc_reference:
-    run: ../../tools/make_secondary.cwl
+    run: ../../tools/make_gdc_secondary.cwl
     in:
-      parent_file: gdc_reference
-      children:
-        source: [reference_fai, sequence_dict]
-        valueFrom: $(self)
+      fasta_file: gdc_reference
+      fasta_fai: reference_fai
+      fasta_dict: sequence_dict
     out: [ output ]
 
   run_sanger_tool:
