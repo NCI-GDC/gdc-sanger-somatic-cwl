@@ -6,7 +6,7 @@ requirements:
     dockerPull: quay.io/ncigdc/gdc_sanger:2.1.0
   - class: EnvVarRequirement
     envDef:
-      CPU: $(toString(inputs.max_threads))
+      CPU: $(inputs.max_threads)
 
 doc: |
     Based off of https://github.com/cancerit/dockstore-cgpwgs by Keiran Raine
@@ -15,14 +15,14 @@ doc: |
 
 hints:
   - class: ResourceRequirement
-    coresMin: $(inputs.max_threads)
+    coresMin: $(parseInt(inputs.max_threads))
     ramMin: 32000
     outdirMin: 20000
 
 inputs:
   max_threads:
-    type: int?
-    default: 24
+    type: string?
+    default: "24"
 
   reference:
     type: File
