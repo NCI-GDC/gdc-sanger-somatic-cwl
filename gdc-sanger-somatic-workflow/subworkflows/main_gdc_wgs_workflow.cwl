@@ -8,7 +8,7 @@ requirements:
   - class: SubworkflowFeatureRequirement
 
 inputs:
-  sanger_threads: int?
+  sanger_threads: string?
   other_threads: int?
   job_uuid: string
   tumor_aliquot_uuid: string
