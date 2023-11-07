@@ -10,4 +10,4 @@ quay.io/ncigdc/sambamba:latest
 quay.io/ncigdc/samtools:147bd4cc606a63c7435907d97fea6e94e9ea9ed58c18f390cab8bc40b1992df7
 quay.io/ncigdc/seg2gene-tool:63dd5143fb8850ec710ba4fe4cf31854240edbe7
 quay.io/ncigdc/variant-filtration-tool:2.5
-quay.io/wtsicgp/dockstore-cgpwgs:2.1.0
+quay.io/wtsicgp/dockstore-cgpwgs:2.1.0-a7375da
