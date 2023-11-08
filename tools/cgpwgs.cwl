@@ -3,7 +3,7 @@ id: cgpwgs
 cwlVersion: v1.0
 requirements:
   - class: DockerRequirement
-    dockerPull: "quay.io/wtsicgp/dockstore-cgpwgs:2.1.0-a7375da "
+    dockerPull: quay.io/ncigdc/gdc_sanger:2.1.0-a7375da
   - class: EnvVarRequirement
     envDef:
       CPU: $(inputs.max_threads)
@@ -15,14 +15,14 @@ doc: |
 
 hints:
   - class: ResourceRequirement
-    coresMin: $(inputs.max_threads)
+    coresMin: $(parseInt(inputs.max_threads))
     ramMin: 32000
     outdirMin: 20000
 
 inputs:
   max_threads:
-    type: int?
-    default: 24
+    type: string?
+    default: "24"
 
   reference:
     type: File

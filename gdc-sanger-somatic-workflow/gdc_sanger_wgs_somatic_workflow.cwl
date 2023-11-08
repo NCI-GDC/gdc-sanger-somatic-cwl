@@ -9,8 +9,8 @@ inputs:
   bioclient_config: File
   upload_bucket: string
   sanger_threads:
-    type: int?
-    default: 24
+    type: string?
+    default: "24"
   other_threads:
     type: int?
     default: 8 
